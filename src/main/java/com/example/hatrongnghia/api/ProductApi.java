@@ -26,17 +26,17 @@ public class ProductApi {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Product> addProduct(@RequestBody Product product) {
-        return ResponseEntity.ok(productService.update(product));
+        return ResponseEntity.ok(productService.addProduct(product));
     }
 
-    @RequestMapping(method = RequestMethod.POST, path = "{id}")
+    @RequestMapping(method = RequestMethod.POST, path = "{id}/{quantity}")
     public ResponseEntity<?> sellProduct(@PathVariable int id,
                                          @PathVariable int quantity) {
         Optional<Product> optionalProduct = productRepository.findById(id);
         if (optionalProduct.isPresent()) {
             Product product = optionalProduct.get();
             product.setQuantity(product.getQuantity() - quantity);
-            return ResponseEntity.ok(productRepository.save(product));
+            return ResponseEntity.ok(productService.sellProduct(product));
         }
         return ResponseEntity.badRequest().build();
     }

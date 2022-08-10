@@ -16,8 +16,11 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public Product update(Product obj) {
-        return productRepository.save(obj);
+    public Product addProduct(Product p) {
+        return productRepository.save(p);
     }
 
+    public Product sellProduct(Product product) {
+        return productRepository.save(product);
+    }
 }
